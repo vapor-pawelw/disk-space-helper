@@ -1,15 +1,14 @@
 # Disk Space Helper
 A lightweight macOS menu bar utility that monitors disk space across your volumes and alerts you when free space runs low.  
 
-<img width="74" height="28" alt="Screenshot 2026-03-27 at 10 20 34" src="https://github.com/user-attachments/assets/1dae3338-d429-4caa-99c4-72a877d57b51" /><br />
-<img width="459" height="106" alt="Screenshot 2026-03-27 at 10 18 49" src="https://github.com/user-attachments/assets/bd0d60ab-9097-4ab2-8fc1-78dc20e0d9d5" /><br />  
-
-
 ![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue)
 ![Swift](https://img.shields.io/badge/Swift-6-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
-  
+
 ## Features
+
+<img width="74" height="28" alt="Screenshot 2026-03-27 at 10 20 34" src="https://github.com/user-attachments/assets/1dae3338-d429-4caa-99c4-72a877d57b51" /><br />
+<img width="459" height="106" alt="Screenshot 2026-03-27 at 10 18 49" src="https://github.com/user-attachments/assets/bd0d60ab-9097-4ab2-8fc1-78dc20e0d9d5" /><br />  
 
 - **Menu Bar Monitor** — Shows the lowest free (or used) percentage across all monitored volumes right in your menu bar
 - **Multi-Volume Support** — Automatically discovers and monitors internal volumes; choose which partitions to track
