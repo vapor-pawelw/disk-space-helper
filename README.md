@@ -6,6 +6,9 @@ A lightweight macOS menu bar utility that monitors disk space across your volume
 ![Swift](https://img.shields.io/badge/Swift-6-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+<img width="84" height="31" alt="Screenshot 2026-03-27 at 10 15 21" src="https://github.com/user-attachments/assets/4fb737ed-f4f9-4e68-af3d-c7cc2c797a6c" />
+<img width="449" height="106" alt="Screenshot 2026-03-27 at 10 15 33" src="https://github.com/user-attachments/assets/279c2fae-9474-4e7c-b008-00cd1fb344dd" />
+
 ## Features
 
 - **Menu Bar Monitor** — Shows the lowest free (or used) percentage across all monitored volumes right in your menu bar
