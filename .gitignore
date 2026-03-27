@@ -1,0 +1,18 @@
+## Tuist managed
+Derived/
+
+## Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+DerivedData/
+build/
+
+## macOS
+.DS_Store
+
+## Tuist
+Tuist/.build
+
+## Release artifacts
+release/
