@@ -8,14 +8,14 @@ struct SettingsView: View {
 
     var body: some View {
         TabView {
+            generalTab
+                .tabItem { Label("General", systemImage: "gear") }
+
             partitionsTab
                 .tabItem { Label("Partitions", systemImage: "internaldrive") }
 
             alertsTab
                 .tabItem { Label("Alerts", systemImage: "bell") }
-
-            generalTab
-                .tabItem { Label("General", systemImage: "gear") }
         }
         .frame(width: 480, height: 320)
         .onAppear {
@@ -77,17 +77,13 @@ struct SettingsView: View {
     private var alertsTab: some View {
         Form {
             Section("Alert Thresholds") {
-                ForEach(monitor.settings.alertThresholds.indices, id: \.self) { index in
+                // Iterate by identity, not index — index-based ForEach crashes
+                // when the array mutates (e.g. delete) because SwiftUI still
+                // holds stale indices.
+                ForEach(monitor.settings.alertThresholds) { threshold in
                     HStack {
-                        TextField("GB", value: Binding(
-                            get: { Double(monitor.settings.alertThresholds[index].bytes) / 1_000_000_000 },
-                            set: {
-                                monitor.settings.alertThresholds[index].bytes = Int64($0 * 1_000_000_000)
-                                updateThresholdLabel(at: index)
-                                monitor.settings.save()
-                            }
-                        ), format: .number)
-                        .frame(width: 80)
+                        TextField("GB", value: thresholdBytesBinding(for: threshold.id), format: .number)
+                            .frame(width: 80)
 
                         Text("GB")
                             .foregroundStyle(.secondary)
@@ -95,8 +91,7 @@ struct SettingsView: View {
                         Spacer()
 
                         Button(role: .destructive) {
-                            let id = monitor.settings.alertThresholds[index].id
-                            monitor.settings.alertThresholds.removeAll { $0.id == id }
+                            monitor.settings.alertThresholds.removeAll { $0.id == threshold.id }
                             monitor.settings.save()
                         } label: {
                             Image(systemName: "trash")
@@ -128,11 +123,21 @@ struct SettingsView: View {
         .formStyle(.grouped)
     }
 
-    private func updateThresholdLabel(at index: Int) {
-        let gb = Double(monitor.settings.alertThresholds[index].bytes) / 1_000_000_000
-        monitor.settings.alertThresholds[index].label = gb.truncatingRemainder(dividingBy: 1) == 0
-            ? "\(Int(gb)) GB"
-            : String(format: "%.1f GB", gb)
+    private func thresholdBytesBinding(for id: UUID) -> Binding<Double> {
+        Binding(
+            get: {
+                guard let threshold = monitor.settings.alertThresholds.first(where: { $0.id == id }) else { return 0 }
+                return Double(threshold.bytes) / 1_000_000_000
+            },
+            set: { newGB in
+                guard let index = monitor.settings.alertThresholds.firstIndex(where: { $0.id == id }) else { return }
+                monitor.settings.alertThresholds[index].bytes = Int64(newGB * 1_000_000_000)
+                monitor.settings.alertThresholds[index].label = newGB.truncatingRemainder(dividingBy: 1) == 0
+                    ? "\(Int(newGB)) GB"
+                    : String(format: "%.1f GB", newGB)
+                monitor.settings.save()
+            }
+        )
     }
 
     // MARK: - General Tab
