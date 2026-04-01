@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MenuContentView: View {
     var monitor: DiskMonitorService
+    @Environment(\.openSettings) private var openSettings
 
     var body: some View {
         if monitor.trackedVolumes.isEmpty {
@@ -15,8 +16,11 @@ struct MenuContentView: View {
 
         Divider()
 
-        SettingsLink {
-            Text("Settings...")
+        Button("Settings...") {
+            openSettings()
+            DispatchQueue.main.async {
+                NSApp.activate(ignoringOtherApps: true)
+            }
         }
         .keyboardShortcut(",", modifiers: .command)
 
