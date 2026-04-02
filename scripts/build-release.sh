@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-VERSION="${1:-1.0.0}"
+VERSION="${1:-1.0.1}"
 APP_NAME="DiskSpaceHelper"
 BUILD_DIR="build"
 RELEASE_DIR="release"
