@@ -9,13 +9,13 @@ struct SettingsView: View {
     var body: some View {
         TabView {
             generalTab
-                .tabItem { Label("General", systemImage: "gear") }
+                .tabItem { Label(.tabGeneral, systemImage: "gear") }
 
             partitionsTab
-                .tabItem { Label("Partitions", systemImage: "internaldrive") }
+                .tabItem { Label(.tabPartitions, systemImage: "internaldrive") }
 
             alertsTab
-                .tabItem { Label("Alerts", systemImage: "bell") }
+                .tabItem { Label(.tabAlerts, systemImage: "bell") }
         }
         .frame(width: 480, height: 320)
         .onAppear {
@@ -29,14 +29,14 @@ struct SettingsView: View {
         Form {
             Section {
                 if monitor.volumes.isEmpty {
-                    Text("No internal volumes detected")
+                    Text(.noVolumesDetected)
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(monitor.volumes) { volume in
                         Toggle(isOn: bindingFor(volume)) {
                             VStack(alignment: .leading) {
                                 Text(volume.name)
-                                Text("\(formatBytes(volume.freeBytes)) free of \(formatBytes(volume.totalBytes))")
+                                Text(.partitionsFreeBytes(formatBytes(volume.freeBytes), formatBytes(volume.totalBytes)))
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }
@@ -44,7 +44,7 @@ struct SettingsView: View {
                     }
                 }
             } header: {
-                Text("Select which partitions to monitor. When none are selected, all are tracked.")
+                Text(.partitionsHeader)
             }
         }
         .formStyle(.grouped)
@@ -76,16 +76,16 @@ struct SettingsView: View {
 
     private var alertsTab: some View {
         Form {
-            Section("Alert Thresholds") {
+            Section(.sectionAlertThresholds) {
                 // Iterate by identity, not index — index-based ForEach crashes
                 // when the array mutates (e.g. delete) because SwiftUI still
                 // holds stale indices.
                 ForEach(monitor.settings.alertThresholds) { threshold in
                     HStack {
-                        TextField("GB", value: thresholdBytesBinding(for: threshold.id), format: .number)
+                        TextField(String(localized: .unitGB), value: thresholdBytesBinding(for: threshold.id), format: .number)
                             .frame(width: 80)
 
-                        Text("GB")
+                        Text(.unitGB)
                             .foregroundStyle(.secondary)
 
                         Spacer()
@@ -100,7 +100,7 @@ struct SettingsView: View {
                     }
                 }
 
-                Button("Add Threshold") {
+                Button(.addThreshold) {
                     monitor.settings.alertThresholds.append(AlertThreshold(
                         id: UUID(),
                         bytes: 5_000_000_000,
@@ -110,8 +110,8 @@ struct SettingsView: View {
                 }
             }
 
-            Section("Notifications") {
-                Toggle("Play sound with alerts", isOn: Binding(
+            Section(.sectionNotifications) {
+                Toggle(.playSoundWithAlerts, isOn: Binding(
                     get: { monitor.settings.soundEnabled },
                     set: {
                         monitor.settings.soundEnabled = $0
@@ -145,14 +145,14 @@ struct SettingsView: View {
     private var generalTab: some View {
         Form {
             Section {
-                Toggle("Launch at login", isOn: $launchAtLogin)
+                Toggle(.launchAtLogin, isOn: $launchAtLogin)
                     .onChange(of: launchAtLogin) { _, newValue in
                         toggleLaunchAtLogin(newValue)
                     }
             }
 
             Section {
-                Toggle("Show used % instead of free %", isOn: Binding(
+                Toggle(.showUsedPercentage, isOn: Binding(
                     get: { monitor.settings.showUsedPercentage },
                     set: {
                         monitor.settings.showUsedPercentage = $0
@@ -160,7 +160,7 @@ struct SettingsView: View {
                     }
                 ))
             } footer: {
-                Text("Controls whether the menu bar shows used or remaining disk space percentage.")
+                Text(.showUsedPercentageFooter)
                     .foregroundStyle(.secondary)
             }
         }

@@ -6,7 +6,7 @@ struct MenuContentView: View {
 
     var body: some View {
         if monitor.trackedVolumes.isEmpty {
-            Text("No volumes found")
+            Text(.noVolumesFound)
                 .foregroundStyle(.secondary)
         } else {
             ForEach(monitor.trackedVolumes) { volume in
@@ -16,7 +16,7 @@ struct MenuContentView: View {
 
         Divider()
 
-        Button("Settings...") {
+        Button(.menuSettings) {
             openSettings()
             DispatchQueue.main.async {
                 NSApp.activate(ignoringOtherApps: true)
@@ -26,7 +26,7 @@ struct MenuContentView: View {
 
         Divider()
 
-        Button("Quit") {
+        Button(.menuQuit) {
             NSApplication.shared.terminate(nil)
         }
         .keyboardShortcut("q", modifiers: .command)
@@ -36,7 +36,7 @@ struct MenuContentView: View {
         let used = formatBytes(volume.usedBytes)
         let total = formatBytes(volume.totalBytes)
         let free = formatBytes(volume.freeBytes)
-        let pct = Int(volume.freePercentage)
-        return "\(volume.name): \(used)/\(total) — \(free) free (\(pct)%)"
+        let pct = "\(Int(volume.freePercentage))%"
+        return String(localized: .volumeDescription(volume.name, used, total, free, pct))
     }
 }

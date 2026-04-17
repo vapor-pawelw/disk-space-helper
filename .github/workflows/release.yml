@@ -1,0 +1,177 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  RELEASE_REPO: vapor-pawelw/disk-space-helper
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          echo "version=$TAG" >> "$GITHUB_OUTPUT"
+          echo "Building version $TAG"
+
+      - name: Inject version into Info.plist
+        run: |
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ steps.version.outputs.version }}" \
+            Derived/InfoPlists/DiskSpaceHelper-Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${{ github.run_number }}" \
+            Derived/InfoPlists/DiskSpaceHelper-Info.plist
+
+      - name: Build
+        run: |
+          xcodebuild build \
+            -project DiskSpaceHelper.xcodeproj \
+            -scheme DiskSpaceHelper \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=YES \
+            CODE_SIGN_IDENTITY="-"
+
+      - name: Package app
+        run: |
+          APP_PATH=$(find build -name "DiskSpaceHelper.app" -type d | head -1)
+          echo "Found app at: $APP_PATH"
+          STAGING_DIR=$(mktemp -d)
+          trap 'rm -rf "$STAGING_DIR"' EXIT
+          ditto "$APP_PATH" "$STAGING_DIR/DiskSpaceHelper.app"
+          ln -s /Applications "$STAGING_DIR/Applications"
+          hdiutil create -volname "DiskSpaceHelper" -srcfolder "$STAGING_DIR" -ov -format UDZO DiskSpaceHelper.dmg
+          ditto -c -k --keepParent "$APP_PATH" DiskSpaceHelper.zip
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION="${TAG#v}"
+          NOTES_FILE=$(mktemp)
+          trap 'rm -f "$NOTES_FILE"' EXIT
+          HAS_NOTES=false
+
+          if [ -f CHANGELOG.md ]; then
+            if awk -v version="$VERSION" '
+              BEGIN { in_version = 0; found = 0 }
+              $0 ~ ("^## " version " - ") {
+                in_version = 1
+                found = 1
+                print
+                next
+              }
+              /^## / {
+                if (in_version == 1) {
+                  exit
+                }
+              }
+              in_version == 1 {
+                print
+              }
+              END {
+                if (found == 0) {
+                  exit 2
+                }
+              }
+            ' CHANGELOG.md > "$NOTES_FILE"; then
+              if [ -s "$NOTES_FILE" ]; then
+                HAS_NOTES=true
+              fi
+            else
+              : > "$NOTES_FILE"
+            fi
+          fi
+
+          if [ "$HAS_NOTES" != "true" ]; then
+            TAG_OBJECT_TYPE="$(git cat-file -t "refs/tags/${TAG}" 2>/dev/null || true)"
+            if [ "$TAG_OBJECT_TYPE" = "tag" ]; then
+              git for-each-ref "refs/tags/${TAG}" --format='%(contents)' > "$NOTES_FILE"
+              if [ -s "$NOTES_FILE" ]; then
+                HAS_NOTES=true
+              fi
+            fi
+          fi
+
+          if gh release view "$TAG" --repo "$RELEASE_REPO" > /dev/null 2>&1; then
+            if [ "$HAS_NOTES" = "true" ]; then
+              gh release edit "$TAG" --repo "$RELEASE_REPO" --notes-file "$NOTES_FILE"
+            fi
+            gh release upload "$TAG" --repo "$RELEASE_REPO" --clobber DiskSpaceHelper.dmg DiskSpaceHelper.zip
+          elif [ "$HAS_NOTES" = "true" ]; then
+            gh release create "$TAG" \
+              --repo "$RELEASE_REPO" \
+              --title "$TAG" \
+              --notes-file "$NOTES_FILE" \
+              DiskSpaceHelper.dmg DiskSpaceHelper.zip
+          else
+            gh release create "$TAG" \
+              --repo "$RELEASE_REPO" \
+              --title "$TAG" \
+              --generate-notes \
+              DiskSpaceHelper.dmg DiskSpaceHelper.zip
+          fi
+
+  update-cask:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for release assets
+        run: sleep 10
+
+      - name: Get release info
+        id: release
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION="${TAG#v}"
+          ASSET_URL="https://github.com/${{ env.RELEASE_REPO }}/releases/download/${TAG}/DiskSpaceHelper.dmg"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "asset_url=$ASSET_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Download release asset and compute SHA256
+        id: sha
+        run: |
+          curl -sSL "${{ steps.release.outputs.asset_url }}" -o DiskSpaceHelper.dmg
+          SHA=$(sha256sum DiskSpaceHelper.dmg | awk '{print $1}')
+          echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
+          echo "SHA256: $SHA"
+
+      - name: Checkout homebrew-tap
+        uses: actions/checkout@v4
+        with:
+          repository: vapor-pawelw/homebrew-tap
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          path: homebrew-tap
+
+      - name: Update cask formula
+        run: |
+          VERSION="${{ steps.release.outputs.version }}"
+          SHA="${{ steps.sha.outputs.sha256 }}"
+          ASSET_URL="${{ steps.release.outputs.asset_url }}"
+          sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew-tap/Casks/disk-space-helper.rb
+          sed -i "s/sha256 \".*\"/sha256 \"$SHA\"/" homebrew-tap/Casks/disk-space-helper.rb
+          sed -i "s|url \".*\".*|url \"$ASSET_URL\"|" homebrew-tap/Casks/disk-space-helper.rb
+          cat homebrew-tap/Casks/disk-space-helper.rb
+
+      - name: Commit and push cask update
+        working-directory: homebrew-tap
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Casks/disk-space-helper.rb
+          git commit -m "Update disk-space-helper to ${{ steps.release.outputs.version }}"
+          git push

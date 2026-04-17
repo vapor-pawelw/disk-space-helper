@@ -7,19 +7,24 @@ let project = Project(
             name: "DiskSpaceHelper",
             destinations: [.mac],
             product: .app,
-            bundleId: "com.pawelw.DiskSpaceHelper",
+            bundleId: "com.vaporpw.DiskSpaceHelper",
             deploymentTargets: .macOS("14.0"),
             infoPlist: .extendingDefault(with: [
                 "LSUIElement": .boolean(true),
             ]),
             sources: ["Sources/**"],
-            resources: ["Resources/**"]
+            resources: ["Resources/**"],
+            settings: .settings(base: [
+                "STRING_CATALOG_GENERATE_SYMBOLS": "YES",
+                "LOCALIZATION_PREFERS_STRING_CATALOGS": "YES",
+                "SWIFT_EMIT_LOC_STRINGS": "YES",
+            ])
         ),
         .target(
             name: "DiskSpaceHelperTests",
             destinations: [.mac],
             product: .unitTests,
-            bundleId: "com.pawelw.DiskSpaceHelperTests",
+            bundleId: "com.vaporpw.DiskSpaceHelperTests",
             deploymentTargets: .macOS("14.0"),
             sources: ["Tests/**"],
             dependencies: [

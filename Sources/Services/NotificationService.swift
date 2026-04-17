@@ -34,8 +34,8 @@ final class NotificationService {
 
     private func fireNotification(volume: VolumeInfo, threshold: AlertThreshold, sound: Bool) {
         let content = UNMutableNotificationContent()
-        content.title = "Low Disk Space"
-        content.body = "\(volume.name) has less than \(threshold.label) free (\(formatBytes(volume.freeBytes)) remaining)"
+        content.title = String(localized: .notificationTitle)
+        content.body = String(localized: .notificationBody(volume.name, threshold.label, formatBytes(volume.freeBytes)))
         if sound {
             content.sound = .default
         }
