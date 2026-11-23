@@ -60,7 +60,7 @@ jobs:
       - name: Package app
         run: |
           APP_PATH=build/Build/Products/Release/DiskSpaceHelper.app
-          lipo -verify_arch arm64 x86_64 "$APP_PATH/Contents/MacOS/DiskSpaceHelper"
+          lipo "$APP_PATH/Contents/MacOS/DiskSpaceHelper" -verify_arch arm64 x86_64
           STAGING_DIR=$(mktemp -d)
           trap 'rm -rf "$STAGING_DIR"' EXIT
           ditto "$APP_PATH" "$STAGING_DIR/DiskSpaceHelper.app"
