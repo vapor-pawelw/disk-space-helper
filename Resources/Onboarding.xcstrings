@@ -1,0 +1,171 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "alreadyEnabled": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already enabled"
+          }
+        }
+      }
+    },
+    "changeInSettings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage both features in Settings → Cleanup."
+          }
+        }
+      }
+    },
+    "checkingAgent": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking agent…"
+          }
+        }
+      }
+    },
+    "continueSetup": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        }
+      }
+    },
+    "enableRecovery": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable Quick Recovery"
+          }
+        }
+      }
+    },
+    "enableSuggestions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable Disk Cleanup"
+          }
+        }
+      }
+    },
+    "recoveryBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When free space drops below 1%, your agent chooses cache files to clear. Quick Recovery skips open files and stops at 1% free."
+          }
+        }
+      }
+    },
+    "recoveryPrivacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your selected CLI receives candidate file names, sizes, and access and modification ages."
+          }
+        }
+      }
+    },
+    "recoveryTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Recovery"
+          }
+        }
+      }
+    },
+    "sharedAgent": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agent for both features"
+          }
+        }
+      }
+    },
+    "skip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip"
+          }
+        }
+      }
+    },
+    "suggestionsBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find space worth freeing when your disk runs low. Review what each suggestion could save and choose what to remove."
+          }
+        }
+      }
+    },
+    "suggestionsPrivacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your selected CLI receives candidate file names and sizes."
+          }
+        }
+      }
+    },
+    "suggestionsTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disk Cleanup"
+          }
+        }
+      }
+    },
+    "windowTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set Up Disk Space Helper"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

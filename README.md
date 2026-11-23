@@ -57,7 +57,7 @@ xattr -cr /Applications/DiskSpaceHelper.app
 ### Prerequisites
 
 - macOS 14.0+
-- Xcode 16+
+- Xcode 26+
 - [Tuist](https://tuist.dev) (for project generation)
 
 ### Build
@@ -98,11 +98,20 @@ Access settings via the menu bar icon > **Settings** (or `Cmd+,`).
 |-----|---------|
 | **Partitions** | Choose which volumes to monitor |
 | **Alerts** | Add/remove free-space thresholds, toggle sound |
+| **Cleanup** | Opt in, select Claude Code or Codex, customize the model, check CLI sign-in, and manage notifications |
 | **General** | Launch at login, show used % vs free % |
 
 ## How It Works
 
-Disk Space Helper runs as a menu bar app (`LSUIElement`). Every 60 seconds it polls mounted volumes via `FileManager`, filters for internal drives, and updates the menu bar label. When free space drops below any configured threshold, it fires a native `UNUserNotification` (with optional sound) and tracks fired alerts to avoid duplicates.
+Disk Space Helper runs as a menu bar app (`LSUIElement`). It polls mounted volumes every 60 seconds (15 seconds with Quick Recovery enabled) via `FileManager`, filters for internal drives, and updates the menu bar label. When free space reaches any configured threshold, it fires a native `UNUserNotification` (with optional sound) and tracks fired alerts to avoid duplicates.
+
+### Optional Disk Cleanup
+
+On first launch or the first update with cleanup onboarding, choose separately whether to enable Disk Cleanup and Quick Recovery. Existing choices carry over. You can change either setting under **Settings → Cleanup** after installing and signing in to Claude Code or Codex. Cleanup scans tracked volumes at a configured warning threshold or at 1% free. It aims to restore at least 5% free and asks you to review the exact paths before permanent deletion.
+
+The app inventories accessible file metadata locally and sends candidate names and allocated sizes to the selected provider for ranking. Claude Opus 5.5 and GPT-6.2 Sol are the defaults, both with medium reasoning. If macOS limits folder access, grant Disk Space Helper Full Disk Access to include those folders. For notifications that stay on screen, select **Persistent** (or **Alerts** on older versions) in macOS Notifications settings.
+
+Enable **Quick Recovery** in the Cleanup tab to let the selected CLI choose cache files when free space drops below 1%. The agent sees file names, sizes, and access and modification ages from the user cache directory. It prioritizes safe, lasting gains and can return an empty selection. The app rechecks the selected files for changes and open handles, and stops deleting once the volume reaches 1% free. Quick Recovery takes priority over suggestions and can start once every 30 minutes per volume. It has its own opt-in and uses the configured CLI even if cleanup suggestions are off.
 
 ## License
 

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MenuContentView: View {
     var monitor: DiskMonitorService
+    var showCleanup: () -> Void
     @Environment(\.openSettings) private var openSettings
 
     var body: some View {
@@ -12,6 +13,16 @@ struct MenuContentView: View {
             ForEach(monitor.trackedVolumes) { volume in
                 Text(volumeDescription(volume))
             }
+        }
+
+        if let summary = monitor.cleanup.quickRecoverySummary {
+            Text(summary)
+        }
+
+        if monitor.settings.cleanupEnabled {
+            Divider()
+            Button(monitor.cleanup.needsAttention ? .Cleanup.menuNeedsAttention : .Cleanup.menuReview,
+                   action: showCleanup)
         }
 
         Divider()

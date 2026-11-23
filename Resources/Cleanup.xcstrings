@@ -1,0 +1,842 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "agentHeader": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cleanup Agent"
+          }
+        }
+      }
+    },
+    "allowNotifications": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow Cleanup Notifications"
+          }
+        }
+      }
+    },
+    "applicationTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disk Space Helper"
+          }
+        }
+      }
+    },
+    "cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
+    "checking": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking…"
+          }
+        }
+      }
+    },
+    "cleanupFinished": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cleanup Finished"
+          }
+        }
+      }
+    },
+    "cli": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CLI"
+          }
+        }
+      }
+    },
+    "cliIncompatible": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Update %1$@ to use it for disk cleanup."
+          }
+        }
+      }
+    },
+    "cliInvalidResponse": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ returned an invalid cleanup list. Try scanning again."
+          }
+        }
+      }
+    },
+    "cliLoggedOut": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in from Terminal with %1$@, then retry."
+          }
+        }
+      }
+    },
+    "cliMissing": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Install %1$@ or choose its executable in Cleanup settings."
+          }
+        }
+      }
+    },
+    "cliRateLimited": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ reached its usage limit. Retry when usage resets."
+          }
+        }
+      }
+    },
+    "cliTimedOut": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ did not respond in time. Try scanning again."
+          }
+        }
+      }
+    },
+    "confirmDeletion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permanently Delete Selected Items?"
+          }
+        }
+      }
+    },
+    "confirmationItem": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "confirmationNotice": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The selected items and the contents of their folders will be deleted permanently."
+          }
+        }
+      }
+    },
+    "deletePermanently": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Permanently"
+          }
+        }
+      }
+    },
+    "deleteSelected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Selected…"
+          }
+        }
+      }
+    },
+    "deleting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deleting approved paths…"
+          }
+        }
+      }
+    },
+    "desktopAlertsDisabled": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on desktop alerts in System Settings."
+          }
+        }
+      }
+    },
+    "detectAutomatically": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detect automatically"
+          }
+        }
+      }
+    },
+    "diskAccess": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disk Access"
+          }
+        }
+      }
+    },
+    "diskAccessDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disk Space Helper scans file names and sizes locally. Your selected provider receives candidate names and sizes, plus cache access and modification ages for Quick Recovery. macOS may limit which folders the app can scan."
+          }
+        }
+      }
+    },
+    "dismiss": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "estimatedRowSize": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "≈ %1$@"
+          }
+        }
+      }
+    },
+    "estimatedSavings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimated to free %1$@"
+          }
+        }
+      }
+    },
+    "executablePath": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Executable path"
+          }
+        }
+      }
+    },
+    "failedPaths": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ paths could not be fully removed"
+          }
+        }
+      }
+    },
+    "fileUseUnavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Recovery could not check which cache files are open."
+          }
+        }
+      }
+    },
+    "findingCandidates": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finding cleanup candidates…"
+          }
+        }
+      }
+    },
+    "freeSpaceGoal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ free · Goal: %2$@ free"
+          }
+        }
+      }
+    },
+    "menuNeedsAttention": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disk Cleanup Needs Attention…"
+          }
+        }
+      }
+    },
+    "menuReview": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review Disk Cleanup…"
+          }
+        }
+      }
+    },
+    "model": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model"
+          }
+        }
+      }
+    },
+    "modelUnavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a model available to your account in Cleanup settings."
+          }
+        }
+      }
+    },
+    "needsAttention": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disk Cleanup Needs Attention"
+          }
+        }
+      }
+    },
+    "noSuggestionsDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A new scan may find more items as space usage changes."
+          }
+        }
+      }
+    },
+    "noSuggestionsTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No Cleanup Suggestions"
+          }
+        }
+      }
+    },
+    "notificationDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose Persistent (Alerts on older macOS versions) in System Settings to keep notifications on screen. Cleanup also appears in the menu bar."
+          }
+        }
+      }
+    },
+    "notificationsAllowed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications allowed."
+          }
+        }
+      }
+    },
+    "notificationsOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are off. You can enable them in System Settings."
+          }
+        }
+      }
+    },
+    "openDiskAccess": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Full Disk Access Settings"
+          }
+        }
+      }
+    },
+    "openNotifications": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Notification Settings"
+          }
+        }
+      }
+    },
+    "partialRowSize": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "≥ %1$@ measured"
+          }
+        }
+      }
+    },
+    "partiallyMeasured": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Measured so far: %1$@"
+          }
+        }
+      }
+    },
+    "paths": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paths (%1$@)"
+          }
+        }
+      }
+    },
+    "quickDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Below 1% free, the selected CLI ranks cache files by size and recency. The app skips open files and stops at 1% free."
+          }
+        }
+      }
+    },
+    "quickHeader": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Recovery"
+          }
+        }
+      }
+    },
+    "quickToggle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Let the agent choose caches to remove automatically"
+          }
+        }
+      }
+    },
+    "recoveryCandidatesChanged": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Recovery skipped the selected cache files on %1$@ because they were open, had changed, or could not be removed."
+          }
+        }
+      }
+    },
+    "recoveryNoCandidates": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Recovery found no safe cache files to remove on %1$@."
+          }
+        }
+      }
+    },
+    "recoveryRemoved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Recovery removed %1$@ of cached files on %2$@."
+          }
+        }
+      }
+    },
+    "recoveryTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Disk Recovery"
+          }
+        }
+      }
+    },
+    "removedPaths": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ paths removed."
+          }
+        }
+      }
+    },
+    "rescan": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rescan"
+          }
+        }
+      }
+    },
+    "retryScan": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry Scan"
+          }
+        }
+      }
+    },
+    "retrying": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retrying scan (attempt %1$@ of 3)…"
+          }
+        }
+      }
+    },
+    "reviewAction": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review Disk Cleanup"
+          }
+        }
+      }
+    },
+    "reviewCurrentPlan": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review the current suggestions and select the items again."
+          }
+        }
+      }
+    },
+    "reviewEmptyDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cleanup suggestions appear here when a tracked volume runs low on space."
+          }
+        }
+      }
+    },
+    "reviewEmptyTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No Volumes Need Cleanup"
+          }
+        }
+      }
+    },
+    "reviewEstimated": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review items on %1$@ that could free up %2$@."
+          }
+        }
+      }
+    },
+    "reviewPartiallyMeasured": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review cleanup suggestions on %1$@. The scan measured %2$@ across the candidates so far."
+          }
+        }
+      }
+    },
+    "saveAndCheck": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save and Check CLI"
+          }
+        }
+      }
+    },
+    "scanAgain": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan Again"
+          }
+        }
+      }
+    },
+    "scanFailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disk cleanup could not complete the scan. Try again."
+          }
+        }
+      }
+    },
+    "scanFailedTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cleanup Scan Failed"
+          }
+        }
+      }
+    },
+    "scanFoundNoCandidates": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Space is low on %1$@. The scan found no cleanup candidates."
+          }
+        }
+      }
+    },
+    "selectionChanged": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cleanup Selection Changed"
+          }
+        }
+      }
+    },
+    "signedIn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ is installed and signed in."
+          }
+        }
+      }
+    },
+    "suggestionsDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scans at your warning threshold or at 1% free. Suggestions aim for at least 5% free and require your approval before deletion."
+          }
+        }
+      }
+    },
+    "suggestionsToggle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggest cleanup when disk space is low"
+          }
+        }
+      }
+    },
+    "tab": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cleanup"
+          }
+        }
+      }
+    },
+    "title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disk Cleanup"
+          }
+        }
+      }
+    },
+    "volumeLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volume"
+          }
+        }
+      }
+    },
+    "waiting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting to scan…"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

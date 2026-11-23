@@ -73,7 +73,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%[volumeName]@ has less than %[thresholdLabel]@ free (%[freeBytes]@ remaining)"
+            "value" : "%1$@ has less than %2$@ free (%3$@ remaining)"
           }
         }
       }
@@ -95,7 +95,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%[free]@ free of %[total]@"
+            "value" : "%1$@ free of %2$@"
           }
         }
       }
@@ -216,7 +216,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%[name]@: %[used]@/%[total]@ — %[free]@ free (%[pct]@)"
+            "value" : "%1$@: %2$@/%3$@ — %4$@ free (%5$@)"
           }
         }
       }

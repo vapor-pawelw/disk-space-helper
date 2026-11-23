@@ -2,7 +2,11 @@
 
 ## Unreleased
 
-- _No notable changes yet._
+- Add opt-in disk cleanup suggestions ranked by Claude Code or Codex. Review estimated savings and exact paths before deleting anything.
+- Add Quick Recovery, which lets the selected agent choose eligible cache files to remove automatically below 1% free.
+- Add separate illustrated setup screens for both features while preserving existing preferences.
+- Show cleanup progress, usage limits, sign-in issues, and ranked suggestions from the menu bar and macOS notifications.
+- Fix placeholder formatting in the volume list and cleanup messages.
 
 ## 1.0.1 - 2026-04-14
 

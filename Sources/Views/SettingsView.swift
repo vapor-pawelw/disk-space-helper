@@ -16,8 +16,11 @@ struct SettingsView: View {
 
             alertsTab
                 .tabItem { Label(.tabAlerts, systemImage: "bell") }
+
+            CleanupSettingsView(monitor: monitor)
+                .tabItem { Label(.Cleanup.tab, systemImage: "internaldrive") }
         }
-        .frame(width: 480, height: 320)
+        .frame(width: 480, height: 460)
         .onAppear {
             launchAtLogin = SMAppService.mainApp.status == .enabled
         }
@@ -68,6 +71,7 @@ struct SettingsView: View {
                     monitor.settings.trackedVolumeURLs = []
                 }
                 monitor.settings.save()
+                monitor.evaluateCleanup()
             }
         )
     }
@@ -93,6 +97,7 @@ struct SettingsView: View {
                         Button(role: .destructive) {
                             monitor.settings.alertThresholds.removeAll { $0.id == threshold.id }
                             monitor.settings.save()
+                            monitor.evaluateCleanup()
                         } label: {
                             Image(systemName: "trash")
                         }
@@ -107,6 +112,7 @@ struct SettingsView: View {
                         label: "5 GB"
                     ))
                     monitor.settings.save()
+                monitor.evaluateCleanup()
                 }
             }
 
@@ -116,6 +122,7 @@ struct SettingsView: View {
                     set: {
                         monitor.settings.soundEnabled = $0
                         monitor.settings.save()
+                        monitor.evaluateCleanup()
                     }
                 ))
             }
@@ -136,6 +143,7 @@ struct SettingsView: View {
                     ? "\(Int(newGB)) GB"
                     : String(format: "%.1f GB", newGB)
                 monitor.settings.save()
+                monitor.evaluateCleanup()
             }
         )
     }
