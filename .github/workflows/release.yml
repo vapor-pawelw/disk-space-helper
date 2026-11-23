@@ -13,7 +13,11 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
+    env:
+      TUIST_VERSION: 4.195.9
+    outputs:
+      update_cask: ${{ steps.tap.outputs.enabled }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,6 +31,12 @@ jobs:
           echo "version=$TAG" >> "$GITHUB_OUTPUT"
           echo "Building version $TAG"
 
+      - name: Generate Xcode project
+        run: |
+          brew install mise
+          mise install "tuist@$TUIST_VERSION"
+          mise exec "tuist@$TUIST_VERSION" -- tuist generate --no-open
+
       - name: Inject version into Info.plist
         run: |
           /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ steps.version.outputs.version }}" \
@@ -37,17 +47,20 @@ jobs:
       - name: Build
         run: |
           xcodebuild build \
-            -project DiskSpaceHelper.xcodeproj \
+            -workspace DiskSpaceHelper.xcworkspace \
             -scheme DiskSpaceHelper \
             -configuration Release \
+            -destination 'generic/platform=macOS' \
             -derivedDataPath build \
+            ONLY_ACTIVE_ARCH=NO \
+            ARCHS='arm64 x86_64' \
             CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-"
 
       - name: Package app
         run: |
-          APP_PATH=$(find build -name "DiskSpaceHelper.app" -type d | head -1)
-          echo "Found app at: $APP_PATH"
+          APP_PATH=build/Build/Products/Release/DiskSpaceHelper.app
+          lipo -verify_arch arm64 x86_64 "$APP_PATH/Contents/MacOS/DiskSpaceHelper"
           STAGING_DIR=$(mktemp -d)
           trap 'rm -rf "$STAGING_DIR"' EXIT
           ditto "$APP_PATH" "$STAGING_DIR/DiskSpaceHelper.app"
@@ -125,8 +138,15 @@ jobs:
               DiskSpaceHelper.dmg DiskSpaceHelper.zip
           fi
 
+      - name: Check Homebrew publishing configuration
+        id: tap
+        env:
+          CAN_UPDATE_TAP: ${{ secrets.HOMEBREW_TAP_TOKEN != '' }}
+        run: echo "enabled=$CAN_UPDATE_TAP" >> "$GITHUB_OUTPUT"
+
   update-cask:
     needs: build
+    if: ${{ needs.build.outputs.update_cask == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Wait for release assets
@@ -145,7 +165,7 @@ jobs:
       - name: Download release asset and compute SHA256
         id: sha
         run: |
-          curl -sSL "${{ steps.release.outputs.asset_url }}" -o DiskSpaceHelper.dmg
+          curl --fail --silent --show-error --location --retry 3 "${{ steps.release.outputs.asset_url }}" -o DiskSpaceHelper.dmg
           SHA=$(sha256sum DiskSpaceHelper.dmg | awk '{print $1}')
           echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
           echo "SHA256: $SHA"
