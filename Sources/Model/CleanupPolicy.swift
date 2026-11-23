@@ -10,7 +10,7 @@ enum CleanupPolicy {
 
     static func targetBytes(for volume: VolumeInfo, thresholds: [AlertThreshold]) -> Int64 {
         let fivePercent = volume.totalBytes / 20 + (volume.totalBytes % 20 == 0 ? 0 : 1)
-        let warning = thresholds.map(\.bytes).filter { $0 > 0 && $0 < volume.totalBytes }.max() ?? 0
+        let warning: Int64 = thresholds.map(\.bytes).filter { $0 > 0 && $0 < volume.totalBytes }.max() ?? 0
         let aboveWarning = min(warning, volume.totalBytes - 1) + 1
         return max(fivePercent, aboveWarning)
     }
