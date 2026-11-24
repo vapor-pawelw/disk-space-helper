@@ -1,11 +1,13 @@
 # Disk Space Helper
-A lightweight macOS menu bar utility that monitors disk space across your volumes, alerts you when free space runs low, and **uses an AI agent to tell you exactly what to delete.**
+A lightweight macOS menu bar utility that monitors disk space across your volumes, alerts you when free space runs low, and **uses an AI agent (Claude Code or Codex) to tell you exactly what to delete.**
 
 ![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue)
 ![Swift](https://img.shields.io/badge/Swift-6-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🤖 AI-Powered Disk Cleanup
+
+**Works with both Claude Code and Codex.** Use whichever you already have, and switch any time.
 
 **Stop guessing what is safe to delete.** When your disk fills up, Disk Space Helper asks the AI coding agent you already have installed, **Claude Code** or **Codex**, to rank what is worth removing, so you get a short, prioritized list instead of a hunt through Finder.
 
@@ -14,7 +16,7 @@ A lightweight macOS menu bar utility that monitors disk space across your volume
 - **You stay in control** — Nothing is removed until you review the exact paths and confirm permanent deletion
 - **Scan on demand** — Run **Scan for Cleanup Suggestions…** from the menu bar at any time, or let it start automatically when free space crosses your alert thresholds
 - **Quick Recovery** — Opt in to let the agent free up cache files automatically when you drop below 1% free, with safety rechecks before every deletion
-- **Your agent, your model** — Pick Claude Code or Codex and choose the model from a list. It uses the CLI you are already signed in to, so there is no extra account or API key
+- **Claude Code *and* Codex** — Pick either one and choose the model from a list. It uses the CLI you are already signed in to, so there is no extra account or API key
 
 Cleanup is opt-in. See [Optional Disk Cleanup](#optional-disk-cleanup) for what the agent sees and how it works.
 
