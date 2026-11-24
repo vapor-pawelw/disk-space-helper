@@ -1,9 +1,22 @@
 # Disk Space Helper
-A lightweight macOS menu bar utility that monitors disk space across your volumes and alerts you when free space runs low.  
+A lightweight macOS menu bar utility that monitors disk space across your volumes, alerts you when free space runs low, and **uses an AI agent to tell you exactly what to delete.**
 
 ![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue)
 ![Swift](https://img.shields.io/badge/Swift-6-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
+## 🤖 AI-Powered Disk Cleanup
+
+**Stop guessing what is safe to delete.** When your disk fills up, Disk Space Helper asks the AI coding agent you already have installed, **Claude Code** or **Codex**, to rank what is worth removing, so you get a short, prioritized list instead of a hunt through Finder.
+
+- **Ranked suggestions with real numbers** — Trash, old installers, Xcode archives, caches and more, each with its exact path, estimated size and the trade-off in plain language
+- **See the result before you delete** — The review window shows how much your selection frees and the **free-space percentage you will have afterwards**
+- **You stay in control** — Nothing is removed until you review the exact paths and confirm permanent deletion
+- **Scan on demand** — Run **Scan for Cleanup Suggestions…** from the menu bar at any time, or let it start automatically when free space crosses your alert thresholds
+- **Quick Recovery** — Opt in to let the agent free up cache files automatically when you drop below 1% free, with safety rechecks before every deletion
+- **Your agent, your model** — Pick Claude Code or Codex and choose the model from a list. It uses the CLI you are already signed in to, so there is no extra account or API key
+
+Cleanup is opt-in. See [Optional Disk Cleanup](#optional-disk-cleanup) for what the agent sees and how it works.
 
 ## Features
 
@@ -15,6 +28,7 @@ A lightweight macOS menu bar utility that monitors disk space across your volume
 - **Configurable Alerts** — Set custom free-space thresholds (e.g. 10 GB, 1 GB) and get native macOS notifications when crossed
 - **Sound Notifications** — Optional audio alerts for low disk space warnings
 - **Launch at Login** — Starts automatically with your Mac (configurable)
+- **AI Disk Cleanup** — Optional Claude Code or Codex integration that ranks what to delete (see above)
 - **Minimal & Native** — Pure SwiftUI, no Electron, no web views — just a tiny menu bar app
 
 ## Installation
