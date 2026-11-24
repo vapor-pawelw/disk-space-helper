@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- _No notable changes yet._
+- Show the projected free-space percentage in the cleanup review, and label the total clearly when nothing is selected.
 
 ## 2.1.1 - 2026-11-24
 

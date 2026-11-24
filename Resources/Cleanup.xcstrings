@@ -34,6 +34,28 @@
         }
       }
     },
+    "availablePartial": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing selected · all suggestions, measured so far: %1$@ · at least %2$@ free afterwards"
+          }
+        }
+      }
+    },
+    "availableSavings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing selected · all suggestions: %1$@ · %2$@ free afterwards"
+          }
+        }
+      }
+    },
     "cancel": {
       "extractionState": "manual",
       "localizations": {
@@ -282,7 +304,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Estimated to free %1$@"
+            "value": "Estimated to free %1$@ · %2$@ free afterwards"
           }
         }
       }
@@ -502,7 +524,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Measured so far: %1$@"
+            "value": "Measured so far: %1$@ · at least %2$@ free afterwards"
           }
         }
       }

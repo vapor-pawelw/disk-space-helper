@@ -156,8 +156,11 @@ private struct CleanupVolumeReview: View {
                     cleanup.retry(volume.id)
                 }
                 Spacer()
-                let amount = formatBytes(selected.isEmpty ? availableBytes : estimatedBytes)
-                Text(isPartial ? .Cleanup.partiallyMeasured(amount) : .Cleanup.estimatedSavings(amount))
+                let bytes = selected.isEmpty ? availableBytes : estimatedBytes
+                let amount = formatBytes(bytes)
+                let freeAfter = min(1, Double(volume.cleanupFreeBytes + bytes) / Double(max(1, volume.totalBytes)))
+                    .formatted(.percent.precision(.fractionLength(1)))
+                Text(summary(selected: !selected.isEmpty, partial: isPartial, amount: amount, freeAfter: freeAfter))
                     .font(.callout)
                     .foregroundStyle(.secondary)
                 Button(.Cleanup.deleteSelected, role: .destructive) {
@@ -170,6 +173,15 @@ private struct CleanupVolumeReview: View {
         }
         .onChange(of: proposalIDs, initial: true) { _, ids in
             selection.formIntersection(ids)
+        }
+    }
+
+    private func summary(selected: Bool, partial: Bool, amount: String, freeAfter: String) -> LocalizedStringResource {
+        switch (selected, partial) {
+        case (true, false): .Cleanup.estimatedSavings(amount, freeAfter)
+        case (true, true): .Cleanup.partiallyMeasured(amount, freeAfter)
+        case (false, false): .Cleanup.availableSavings(amount, freeAfter)
+        case (false, true): .Cleanup.availablePartial(amount, freeAfter)
         }
     }
 
