@@ -34,7 +34,11 @@ struct CleanupSettingsView: View {
                     }
                 }
 
-                TextField(.Cleanup.model, text: $model, prompt: Text(settings.cleanupAgent.defaultModel))
+                Picker(.Cleanup.model, selection: $model) {
+                    ForEach(modelOptions) { option in
+                        Text(verbatim: option.name).tag(option.id)
+                    }
+                }
                 TextField(.Cleanup.executablePath, text: $executablePath, prompt: Text(.Cleanup.detectAutomatically))
 
                 HStack {
@@ -84,6 +88,13 @@ struct CleanupSettingsView: View {
         .task { await refreshNotificationStatus() }
     }
 
+    /// Keeps a previously typed custom model selectable so upgrading does not silently change it.
+    private var modelOptions: [CleanupModel] {
+        let known = settings.cleanupAgent.models
+        guard !model.isEmpty, !known.contains(where: { $0.id == model }) else { return known }
+        return known + [.init(id: model, name: model)]
+    }
+
     private var quickRecovery: Binding<Bool> {
         Binding(get: { settings.quickRecoveryEnabled }, set: { enabled in
             if enabled { saveFields() }
@@ -121,7 +132,8 @@ struct CleanupSettingsView: View {
     private func loadFields() {
         check?.cancel()
         connectionMessage = ""
-        model = settings.cleanupModel(for: settings.cleanupAgent)
+        let stored = settings.cleanupModel(for: settings.cleanupAgent).trimmingCharacters(in: .whitespacesAndNewlines)
+        model = stored.isEmpty ? settings.cleanupAgent.defaultModel : stored
         executablePath = settings.cleanupExecutable(for: settings.cleanupAgent)
     }
 

@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- _No notable changes yet._
+- Choose the cleanup agent model from a list instead of typing its identifier.
 
 ## 2.0.0 - 2026-11-23
 
