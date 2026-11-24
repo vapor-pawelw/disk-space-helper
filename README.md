@@ -98,7 +98,7 @@ Access settings via the menu bar icon > **Settings** (or `Cmd+,`).
 |-----|---------|
 | **Partitions** | Choose which volumes to monitor |
 | **Alerts** | Add/remove free-space thresholds, toggle sound |
-| **Cleanup** | Opt in, select Claude Code or Codex, customize the model, check CLI sign-in, and manage notifications |
+| **Cleanup** | Opt in, select Claude Code or Codex, pick the model from a list, check CLI sign-in, and manage notifications |
 | **General** | Launch at login, show used % vs free % |
 
 ## How It Works
@@ -107,7 +107,7 @@ Disk Space Helper runs as a menu bar app (`LSUIElement`). It polls mounted volum
 
 ### Optional Disk Cleanup
 
-On first launch or the first update with cleanup onboarding, choose separately whether to enable Disk Cleanup and Quick Recovery. Existing choices carry over. You can change either setting under **Settings → Cleanup** after installing and signing in to Claude Code or Codex. Cleanup scans tracked volumes at a configured warning threshold or at 1% free. It aims to restore at least 5% free and asks you to review the exact paths before permanent deletion.
+On first launch or the first update with cleanup onboarding, choose separately whether to enable Disk Cleanup and Quick Recovery. Existing choices carry over. You can change either setting under **Settings → Cleanup** after installing and signing in to Claude Code or Codex. Cleanup scans tracked volumes at a configured warning threshold or at 1% free. It aims to restore at least 5% free and asks you to review the exact paths before permanent deletion. You can also run a scan on demand from the menu bar with **Scan for Cleanup Suggestions…**, even when free space is above your thresholds. The **Review Disk Cleanup…** item appears only when there is something to review, and the review window shows how much each selection frees and the free-space percentage you would have afterwards.
 
 The app inventories accessible file metadata locally and sends candidate names and allocated sizes to the selected provider for ranking. Claude Opus 5.5 and GPT-6.2 Sol are the defaults, both with medium reasoning. If macOS limits folder access, grant Disk Space Helper Full Disk Access to include those folders. For notifications that stay on screen, select **Persistent** (or **Alerts** on older versions) in macOS Notifications settings.
 
