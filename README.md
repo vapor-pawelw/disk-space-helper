@@ -1,11 +1,15 @@
 # Disk Space Helper
-A lightweight macOS menu bar utility that monitors disk space across your volumes, alerts you when free space runs low, and **uses an AI agent (Claude Code or Codex) to tell you exactly what to delete.**
+A lightweight macOS menu bar monitor that **keeps your disk from ever filling up.** It watches free space across your volumes, alerts you early, and **uses an AI agent (Claude Code or Codex) to find what to delete** — and, with Quick Recovery, to free space automatically before you hit 1%.
 
 ![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue)
 ![Swift](https://img.shields.io/badge/Swift-6-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-## 🤖 AI-Powered Disk Cleanup
+## 🛡️ Never Run Out of Disk Space
+
+A full disk breaks builds, updates, Time Machine and sometimes the whole system. Disk Space Helper is a guard that stays in your menu bar and acts *before* that happens: alerts at your thresholds, AI-ranked cleanup suggestions when space gets low, and an automatic safety net at 1% free.
+
+### 🤖 AI-Powered Disk Cleanup
 
 **Works with both Claude Code and Codex.** Use whichever you already have, and switch any time.
 
@@ -15,8 +19,16 @@ A lightweight macOS menu bar utility that monitors disk space across your volume
 - **See the result before you delete** — The review window shows how much your selection frees and the **free-space percentage you will have afterwards**
 - **You stay in control** — Nothing is removed until you review the exact paths and confirm permanent deletion
 - **Scan on demand** — Run **Scan for Cleanup Suggestions…** from the menu bar at any time, or let it start automatically when free space crosses your alert thresholds
-- **Quick Recovery** — Opt in to let the agent free up cache files automatically when you drop below 1% free, with safety rechecks before every deletion
 - **Claude Code *and* Codex** — Pick either one and choose the model from a list. It uses the CLI you are already signed in to, so there is no extra account or API key
+
+### ⚡ Quick Recovery: the 1% safety net
+
+Opt in, and when a volume drops below **1% free** the agent picks safe, rebuildable cache files and **removes them automatically, with no prompt and no waiting for you**. Your disk does not get stuck at 0% while you are away from the keyboard.
+
+- **Safe by design** — Only user cache files are considered, the agent can decline to delete anything, and every file is rechecked for changes and open handles right before removal
+- **Stops as soon as it is enough** — Deletion ends once the volume is back to 1% free
+- **Rate-limited** — Runs at most once every 30 minutes per volume, and takes priority over regular suggestions
+- **Notifies you** — You get a notification and a menu bar summary of what was freed
 
 Cleanup is opt-in. See [Optional Disk Cleanup](#optional-disk-cleanup) for what the agent sees and how it works.
 
@@ -30,7 +42,7 @@ Cleanup is opt-in. See [Optional Disk Cleanup](#optional-disk-cleanup) for what 
 - **Configurable Alerts** — Set custom free-space thresholds (e.g. 10 GB, 1 GB) and get native macOS notifications when crossed
 - **Sound Notifications** — Optional audio alerts for low disk space warnings
 - **Launch at Login** — Starts automatically with your Mac (configurable)
-- **AI Disk Cleanup** — Optional Claude Code or Codex integration that ranks what to delete (see above)
+- **AI Disk Cleanup & Quick Recovery** — Optional Claude Code or Codex integration that ranks what to delete and automatically frees space below 1% (see above)
 - **Minimal & Native** — Pure SwiftUI, no Electron, no web views — just a tiny menu bar app
 
 ## Installation
