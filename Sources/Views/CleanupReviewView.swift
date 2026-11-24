@@ -6,11 +6,7 @@ struct CleanupReviewView: View {
 
     private var cleanup: CleanupService { monitor.cleanup }
 
-    private var reviewVolumes: [VolumeInfo] {
-        let active = Set(cleanup.activeVolumes.map(\.id))
-        let recent = monitor.trackedVolumes.filter { cleanup.removalResults[$0.id] != nil && !active.contains($0.id) }
-        return cleanup.activeVolumes + recent
-    }
+    private var reviewVolumes: [VolumeInfo] { cleanup.reviewVolumes }
 
     var body: some View {
         VStack(spacing: 0) {

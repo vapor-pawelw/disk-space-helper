@@ -8,7 +8,7 @@ struct DiskSpaceHelperApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            MenuContentView(monitor: delegate.monitor) { delegate.showCleanup() }
+            MenuContentView(monitor: delegate.monitor) { delegate.showCleanup(volume: $0) }
         } label: {
             let needsAttention = delegate.monitor.cleanup.needsAttention
             Image(systemName: needsAttention ? "exclamationmark.triangle" : "internaldrive")

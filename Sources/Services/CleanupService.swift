@@ -36,6 +36,8 @@ final class CleanupService {
     private var thresholds: [AlertThreshold] = []
     private var trackedVolumes: [VolumeInfo] = []
     private var soundEnabled = true
+    /// Volumes the user asked to scan regardless of the free-space thresholds.
+    private var manualScans: Set<URL> = []
     private var lastRecoveryAttempts: [URL: ContinuousClock.Instant] = [:]
     private var work: (kind: Work, task: Task<Void, Never>)?
 
@@ -53,6 +55,12 @@ final class CleanupService {
         }
     }
 
+    /// Volumes with something to review: an active scan or a recent removal result.
+    var reviewVolumes: [VolumeInfo] {
+        let active = Set(activeVolumes.map(\.id))
+        return activeVolumes + trackedVolumes.filter { removalResults[$0.id] != nil && !active.contains($0.id) }
+    }
+
     func update(
         volumes: [VolumeInfo], thresholds: [AlertThreshold], configuration: CleanupAgentConfiguration?,
         quickRecovery: CleanupAgentConfiguration?, sound: Bool
@@ -68,6 +76,7 @@ final class CleanupService {
                 default: break
                 }
             }
+            manualScans = []
             self.configuration = configuration
         }
         if recoveryConfiguration != quickRecovery {
@@ -87,6 +96,18 @@ final class CleanupService {
         if let quickRecoveryNotice, quickRecoveryNotice.expires <= .now {
             self.quickRecoveryNotice = nil
         }
+        startNextWork()
+    }
+
+    func scanNow(_ id: URL) {
+        guard configuration != nil, trackedVolumes.contains(where: { $0.id == id }) else { return }
+        switch statuses[id] {
+        case .scanning, .deleting: return
+        default: break
+        }
+        manualScans.insert(id)
+        clearStatus(id)
+        updateActiveVolumes()
         startNextWork()
     }
 
@@ -136,7 +157,7 @@ final class CleanupService {
                 let belowWarning = CleanupPolicy.shouldScan(volume, thresholds: thresholds)
                 let target = CleanupPolicy.targetBytes(for: volume, thresholds: thresholds)
                 let belowActiveTarget = statuses[volume.id] != nil && volume.cleanupFreeBytes < target
-                return (belowWarning || belowActiveTarget)
+                return (belowWarning || belowActiveTarget || manualScans.contains(volume.id))
                     && roots.insert(CleanupFileSystem.volumeRoot(for: volume.id).path).inserted
             }
 
@@ -161,9 +182,12 @@ final class CleanupService {
         guard work == nil, let configuration,
               let volume = activeVolumes.first(where: { statuses[$0.id] == nil }) else { return }
         let target = CleanupPolicy.targetBytes(for: volume, thresholds: thresholds)
+        var needed = max(0, target - volume.cleanupFreeBytes)
+        // A healthy volume needs nothing, so a manual scan asks for 5% of its capacity.
+        if manualScans.contains(volume.id) { needed = max(needed, volume.totalBytes / 20) }
         statuses[volume.id] = .scanning(attempt: 1)
         let task = Task {
-            await scanVolume(volume, needed: max(0, target - volume.cleanupFreeBytes), configuration: configuration)
+            await scanVolume(volume, needed: needed, configuration: configuration)
             if Task.isCancelled, case .scanning = statuses[volume.id] { clearStatus(volume.id) }
             work = nil
             updateActiveVolumes()

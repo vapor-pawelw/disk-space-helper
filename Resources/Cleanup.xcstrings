@@ -364,6 +364,17 @@
         }
       }
     },
+    "menuScan": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan for Cleanup Suggestions…"
+          }
+        }
+      }
+    },
     "model": {
       "extractionState": "manual",
       "localizations": {

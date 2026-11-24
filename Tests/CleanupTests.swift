@@ -220,6 +220,20 @@ struct CleanupTests {
         #expect(CleanupAgentRunner.classify("Thread 586429237 failed unexpectedly") == .scanFailed)
     }
 
+    @MainActor @Test func manualScanCoversAHealthyVolumeAndOnlyThenOffersReview() {
+        let service = CleanupService(notifications: NotificationService(), cacheDirectory: nil)
+        let volume = makeVolume(freeBytes: 90_000_000_000)
+        let configuration = CleanupAgentConfiguration(agent: .claude, model: "m", executablePath: "/nonexistent")
+        service.update(volumes: [volume], thresholds: [], configuration: configuration, quickRecovery: nil, sound: false)
+        #expect(service.reviewVolumes.isEmpty)
+
+        service.scanNow(volume.id)
+        #expect(service.reviewVolumes.map(\.id) == [volume.id])
+
+        service.update(volumes: [volume], thresholds: [], configuration: nil, quickRecovery: nil, sound: false)
+        #expect(service.reviewVolumes.isEmpty)
+    }
+
     private func withTemporaryDirectory(_ test: (URL) throws -> Void) throws {
         let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false)

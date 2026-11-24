@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MenuContentView: View {
     var monitor: DiskMonitorService
-    var showCleanup: () -> Void
+    var showCleanup: (URL?) -> Void
     @Environment(\.openSettings) private var openSettings
 
     var body: some View {
@@ -20,9 +20,24 @@ struct MenuContentView: View {
         }
 
         if monitor.settings.cleanupEnabled {
+            let cleanup = monitor.cleanup
             Divider()
-            Button(monitor.cleanup.needsAttention ? .Cleanup.menuNeedsAttention : .Cleanup.menuReview,
-                   action: showCleanup)
+            if !cleanup.reviewVolumes.isEmpty {
+                Button(cleanup.needsAttention ? .Cleanup.menuNeedsAttention : .Cleanup.menuReview) {
+                    showCleanup(nil)
+                }
+            }
+            if monitor.settings.cleanupOnboardingStep == nil {
+                if monitor.trackedVolumes.count > 1 {
+                    Menu(.Cleanup.menuScan) {
+                        ForEach(monitor.trackedVolumes) { volume in
+                            Button(volume.name) { scan(volume) }
+                        }
+                    }
+                } else if let volume = monitor.trackedVolumes.first {
+                    Button(.Cleanup.menuScan) { scan(volume) }
+                }
+            }
         }
 
         Divider()
@@ -41,6 +56,11 @@ struct MenuContentView: View {
             NSApplication.shared.terminate(nil)
         }
         .keyboardShortcut("q", modifiers: .command)
+    }
+
+    private func scan(_ volume: VolumeInfo) {
+        monitor.cleanup.scanNow(volume.id)
+        showCleanup(volume.id)
     }
 
     private func volumeDescription(_ volume: VolumeInfo) -> String {

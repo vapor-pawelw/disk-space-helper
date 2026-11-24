@@ -2,7 +2,8 @@
 
 ## Unreleased
 
-- _No notable changes yet._
+- Add "Scan for Cleanup Suggestions…" to the menu bar to run a cleanup review on demand, even when free space is above your alert thresholds.
+- Show the cleanup review menu item only when there is something to review.
 
 ## 2.1.0 - 2026-11-24
 
